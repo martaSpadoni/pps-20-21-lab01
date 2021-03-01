@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public class CircularListImpl implements CircularList {
     private final List<Integer> list = new ArrayList<>();
+    private int nextIndex;
     @Override
     public void add(int element) {
         list.add(element);
@@ -25,7 +26,9 @@ public class CircularListImpl implements CircularList {
 
     @Override
     public Optional<Integer> next() {
-        return Optional.empty();
+        Optional<Integer> next = Optional.of(list.get(nextIndex));
+        nextIndex = (nextIndex+1) % list.size();
+        return next;
     }
 
     @Override
