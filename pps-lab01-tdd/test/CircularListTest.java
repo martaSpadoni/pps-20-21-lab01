@@ -173,6 +173,16 @@ public class CircularListTest {
         assertEquals(Optional.of(0), circularList.next(multipleOfFive));
     }
 
+    @Test
+    void testNextWithEqualsStrategy(){
+        fillCircularList(NUMBER_OF_ELEMENT);
+        SelectStrategy equalsStrategy = e -> e == 3;
+        assertEquals(Optional.of(3), circularList.next(equalsStrategy));
+        assertEquals(Optional.of(3), circularList.next(equalsStrategy));
+    }
+
+
+
 
 
 }
