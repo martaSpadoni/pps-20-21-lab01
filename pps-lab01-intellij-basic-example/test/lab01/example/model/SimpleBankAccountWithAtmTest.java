@@ -42,7 +42,7 @@ class SimpleBankAccountWithAtmTest extends BankAccountTest<SimpleBankAccountWith
     }
 
     @Test
-    void testHugeAtmWithdraw() {
+    void testAtmWithdrawHigherThanBalance() {
         getBankAccount().deposit(getAccountHolder().getId(), 100);
         getBankAccount().atmWithdraw(getAccountHolder().getId(), 100);
         assertEquals(100, getBankAccount().getBalance());
