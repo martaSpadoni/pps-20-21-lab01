@@ -181,6 +181,22 @@ public class CircularListTest {
         assertEquals(Optional.of(3), circularList.next(equalsStrategy));
     }
 
+    @Test
+    void testNextWithDifferentStrategy(){
+        fillCircularList(NUMBER_OF_ELEMENT);
+        assertEquals(Optional.of(6), circularList.next(e -> e == 6));
+        assertEquals(Optional.of(8), circularList.next(e -> (e % 2) == 0));
+        assertEquals(Optional.of(9), circularList.next(e -> (e % 3) == 0));
+        assertEquals(Optional.empty(), circularList.next(e -> e == 20));
+        assertEquals(Optional.of(0), circularList.next(e -> (e % 2) == 0));
+    }
+
+    @Test
+    void  testNextWithStrategyOnEmptyList(){
+        assertEquals(Optional.empty(), circularList.next(e -> e==2));
+    }
+
+
 
 
 
