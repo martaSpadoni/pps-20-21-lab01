@@ -1,8 +1,6 @@
 import lab01.tdd.CircularList;
 import lab01.tdd.CircularListImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -154,6 +152,14 @@ public class CircularListTest {
         circularList.reset();
         circularList.next();
         assertEquals(Optional.of(1), circularList.next());
+    }
+
+    @Test
+    void testNextWithEvenStrategy(){
+        fillCircularList(NUMBER_OF_ELEMENT);
+        assertEquals(Optional.of(0), circularList.next( e -> (e % 2) == 0 ));
+        assertEquals(Optional.of(2), circularList.next( e -> (e % 2) == 0 ));
+        assertEquals(Optional.of(4), circularList.next( e -> (e % 2) == 0 ));
     }
 
 

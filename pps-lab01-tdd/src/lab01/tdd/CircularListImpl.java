@@ -5,6 +5,7 @@ import lab01.tdd.CircularList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 public class CircularListImpl implements CircularList {
     private final List<Integer> list = new ArrayList<>();
@@ -48,6 +49,12 @@ public class CircularListImpl implements CircularList {
 
     @Override
     public Optional<Integer> next(SelectStrategy strategy) {
+        for(int i = 0; i < list.size(); i++){
+            Optional<Integer> next = next();
+            if(next.isPresent() && strategy.apply(next.get())){
+                return next;
+            }
+        }
         return Optional.empty();
     }
 }
