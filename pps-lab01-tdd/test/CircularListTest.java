@@ -102,10 +102,10 @@ public class CircularListTest {
         assertEquals(Optional.empty(), circularList.next());
     }
 
-//    @Test
-//    void testFirstPrevious(){
-//        fillCircularList(NUMBER_OF_ELEMENT);
-//        assertEquals(Optional.of(NUMBER_OF_ELEMENT-1), circularList.previous());
-//    }
+    @Test
+    void testFirstPrevious(){
+        fillCircularList(NUMBER_OF_ELEMENT);
+        assertEquals(Optional.of(NUMBER_OF_ELEMENT-1), circularList.previous());
+    }
 
 }
