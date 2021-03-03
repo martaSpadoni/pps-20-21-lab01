@@ -1,11 +1,9 @@
 package lab01.tdd;
 
-import lab01.tdd.CircularList;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
+
 
 public class CircularListImpl implements CircularList {
     private final List<Integer> list = new ArrayList<>();
