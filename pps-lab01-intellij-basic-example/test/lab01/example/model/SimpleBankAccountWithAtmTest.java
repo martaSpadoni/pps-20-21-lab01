@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimpleBankAccountWithAtmTest extends BankAccountTest<SimpleBankAccountWithAtm>{
-    private final static double FEE = 1;
 
     @BeforeEach
     void beforeEach(){
@@ -47,5 +46,4 @@ class SimpleBankAccountWithAtmTest extends BankAccountTest<SimpleBankAccountWith
         getBankAccount().atmWithdraw(getAccountHolder().getId(), 100);
         assertEquals(100, getBankAccount().getBalance());
     }
-
 }

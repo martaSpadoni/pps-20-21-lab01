@@ -192,9 +192,4 @@ public class CircularListTest {
         assertEquals(Optional.empty(), circularList.next(factory.createEqualsStrategy(12)));
     }
 
-
-
-
-
-
 }

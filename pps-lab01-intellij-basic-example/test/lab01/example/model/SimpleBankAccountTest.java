@@ -12,12 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SimpleBankAccountTest extends BankAccountTest<SimpleBankAccount> {
 
-
     @BeforeEach
     void beforeEach(){
         setAccountHolder(new AccountHolder("Mario", "Rossi", 1));
         setBankAccount(new SimpleBankAccount(getAccountHolder(), 0));
     }
-
-
 }

@@ -15,5 +15,4 @@ public class SimpleBankAccountWithAtm extends SimpleBankAccount {
     public void atmWithdraw(final int usrID, final double amount) {
         withdraw(usrID, amount+FEE);
     }
-
 }
