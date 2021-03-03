@@ -16,7 +16,7 @@ public class CircularListTest {
     private final static int NUMBER_OF_NEXT = 5;
 
     private CircularList circularList;
-    private SelectStrategyFactory factory = new SelectStrategyFactoryImpl();
+    private final SelectStrategyFactory factory = new SelectStrategyFactoryImpl();
 
     @BeforeEach
     void beforeEach(){
@@ -45,15 +45,15 @@ public class CircularListTest {
         assertEquals(1, circularList.size());
     }
 
-    private void fillCircularList(int elements){
-        IntStream.range(0, elements)
+    private void fillCircularList(){
+        IntStream.range(0, NUMBER_OF_ELEMENT)
                 .forEach(i -> circularList.add(i));
     }
 
     @Test
     void testMultipleAdd(){
-        fillCircularList(NUMBER_OF_ELEMENT);
-        assertEquals(10, circularList.size());
+        fillCircularList();
+        assertEquals(NUMBER_OF_ELEMENT, circularList.size());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class CircularListTest {
 
     @Test
     void testMultipleNext(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         IntStream.rangeClosed(0, NUMBER_OF_NEXT)
                 .forEach(i -> circularList.next());
         assertEquals(Optional.of(NUMBER_OF_NEXT+1), circularList.next());
@@ -87,7 +87,7 @@ public class CircularListTest {
 
     @Test
     void testNextUntilEnd(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         IntStream.range(0, circularList.size()).
                 forEach(i -> circularList.next());
         assertEquals(Optional.of(0), circularList.next());
@@ -100,7 +100,7 @@ public class CircularListTest {
 
     @Test
     void testFirstPrevious(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         assertEquals(Optional.of(NUMBER_OF_ELEMENT-1), circularList.previous());
     }
 
@@ -111,7 +111,7 @@ public class CircularListTest {
 
     @Test
     void  testPreviousUntilFirstElement(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         IntStream.range(0, circularList.size()-1)
                 .forEach(i -> circularList.previous());
         assertEquals(Optional.of(0), circularList.previous());
@@ -119,7 +119,7 @@ public class CircularListTest {
 
     @Test
     void testNextAndPrevious(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         circularList.next();
         assertEquals(Optional.of(1), circularList.next());
         assertEquals(Optional.of(1), circularList.previous());
@@ -129,7 +129,7 @@ public class CircularListTest {
 
     @Test
     void testResetAfterNext(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         circularList.next();
         circularList.reset();
         assertEquals(Optional.of(0), circularList.next());
@@ -137,7 +137,7 @@ public class CircularListTest {
 
     @Test
     void testResetAfterPrevious(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         circularList.previous();
         circularList.reset();
         assertEquals(Optional.of(9), circularList.previous());
@@ -145,7 +145,7 @@ public class CircularListTest {
 
     @Test
     void  testReset(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         circularList.previous();
         circularList.previous();
         circularList.next();
@@ -156,8 +156,7 @@ public class CircularListTest {
 
     @Test
     void testNextWithEvenStrategy(){
-        fillCircularList(NUMBER_OF_ELEMENT);
-
+        fillCircularList();
         assertEquals(Optional.of(0), circularList.next(factory.createEvenStrategy()));
         assertEquals(Optional.of(2), circularList.next(factory.createEvenStrategy()));
         assertEquals(Optional.of(4), circularList.next(factory.createEvenStrategy()));
@@ -165,7 +164,7 @@ public class CircularListTest {
 
     @Test
     void testNextWithMultipleOfStrategy(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         assertEquals(Optional.of(0), circularList.next(factory.createMultipleOfStrategy(5)));
         assertEquals(Optional.of(5), circularList.next(factory.createMultipleOfStrategy(5)));
         assertEquals(Optional.of(0), circularList.next(factory.createMultipleOfStrategy(5)));
@@ -173,14 +172,14 @@ public class CircularListTest {
 
     @Test
     void testNextWithEqualsStrategy(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         assertEquals(Optional.of(3), circularList.next(factory.createEqualsStrategy(3)));
         assertEquals(Optional.of(3), circularList.next(factory.createEqualsStrategy(3)));
     }
 
     @Test
     void testNextWithDifferentStrategy(){
-        fillCircularList(NUMBER_OF_ELEMENT);
+        fillCircularList();
         assertEquals(Optional.of(6), circularList.next(factory.createEqualsStrategy(6)));
         assertEquals(Optional.of(8), circularList.next(factory.createEvenStrategy()));
         assertEquals(Optional.of(9), circularList.next(factory.createMultipleOfStrategy(3)));
