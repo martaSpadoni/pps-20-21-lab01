@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,9 +48,8 @@ public class CircularListTest {
     }
 
     private void fillCircularList(int elements){
-        for(int i = 0; i < elements; i++){
-            circularList.add(i);
-        }
+        IntStream.range(0, elements)
+                .forEach(i -> circularList.add(i));
     }
 
     @Test
@@ -82,19 +82,17 @@ public class CircularListTest {
     @Test
     void testMultipleNext(){
         fillCircularList(NUMBER_OF_ELEMENT);
-        for(int i = 0; i <= NUMBER_OF_NEXT; i++){
-            circularList.next();
-        }
+        IntStream.rangeClosed(0, NUMBER_OF_NEXT)
+                .forEach(i -> circularList.next());
         assertEquals(Optional.of(NUMBER_OF_NEXT+1), circularList.next());
     }
 
     @Test
     void testNextUntilEnd(){
         fillCircularList(NUMBER_OF_ELEMENT);
-        for(int i = 0; i <= circularList.size(); i++){
-            circularList.next();
-        }
-        assertEquals(Optional.of(1), circularList.next());
+        IntStream.range(0, circularList.size()).
+                forEach(i -> circularList.next());
+        assertEquals(Optional.of(0), circularList.next());
     }
 
     @Test
@@ -106,6 +104,29 @@ public class CircularListTest {
     void testFirstPrevious(){
         fillCircularList(NUMBER_OF_ELEMENT);
         assertEquals(Optional.of(NUMBER_OF_ELEMENT-1), circularList.previous());
+    }
+
+    @Test
+    void testPreviousOnEmptyList(){
+        assertEquals(Optional.empty(), circularList.previous());
+    }
+
+    @Test
+    void  testPreviousUntilFirstElement(){
+        fillCircularList(NUMBER_OF_ELEMENT);
+        IntStream.range(0, circularList.size()-1)
+                .forEach(i -> circularList.previous());
+        assertEquals(Optional.of(0), circularList.previous());
+    }
+
+    @Test
+    void testNextAndPrevious(){
+        fillCircularList(NUMBER_OF_ELEMENT);
+        circularList.next();
+        assertEquals(Optional.of(1), circularList.next());
+        assertEquals(Optional.of(1), circularList.previous());
+        assertEquals(Optional.of(0), circularList.previous());
+        assertEquals(Optional.of(9), circularList.previous());
     }
 
 
