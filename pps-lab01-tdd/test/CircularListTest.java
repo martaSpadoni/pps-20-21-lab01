@@ -1,5 +1,6 @@
 import lab01.tdd.CircularList;
 import lab01.tdd.CircularListImpl;
+import lab01.tdd.SelectStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -157,17 +158,19 @@ public class CircularListTest {
     @Test
     void testNextWithEvenStrategy(){
         fillCircularList(NUMBER_OF_ELEMENT);
-        assertEquals(Optional.of(0), circularList.next( e -> (e % 2) == 0 ));
-        assertEquals(Optional.of(2), circularList.next( e -> (e % 2) == 0 ));
-        assertEquals(Optional.of(4), circularList.next( e -> (e % 2) == 0 ));
+        SelectStrategy evenStrategy = e -> (e % 2) == 0;
+        assertEquals(Optional.of(0), circularList.next(evenStrategy));
+        assertEquals(Optional.of(2), circularList.next(evenStrategy));
+        assertEquals(Optional.of(4), circularList.next(evenStrategy));
     }
 
     @Test
     void testNextWithMultipleOfStrategy(){
         fillCircularList(NUMBER_OF_ELEMENT);
-        assertEquals(Optional.of(0), circularList.next( e -> (e % 5) == 0 ));
-        assertEquals(Optional.of(5), circularList.next( e -> (e % 5) == 0 ));
-        assertEquals(Optional.of(0), circularList.next( e -> (e % 5) == 0 ));
+        SelectStrategy multipleOfFive = e -> (e % 5) == 0;
+        assertEquals(Optional.of(0), circularList.next(multipleOfFive));
+        assertEquals(Optional.of(5), circularList.next(multipleOfFive));
+        assertEquals(Optional.of(0), circularList.next(multipleOfFive));
     }
 
 
