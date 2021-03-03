@@ -1,6 +1,4 @@
-import lab01.tdd.CircularList;
-import lab01.tdd.CircularListImpl;
-import lab01.tdd.SelectStrategy;
+import lab01.tdd.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +16,7 @@ public class CircularListTest {
     private final static int NUMBER_OF_NEXT = 5;
 
     private CircularList circularList;
+    private SelectStrategyFactory factory = new SelectStrategyFactoryImpl();
 
     @BeforeEach
     void beforeEach(){
@@ -158,42 +157,40 @@ public class CircularListTest {
     @Test
     void testNextWithEvenStrategy(){
         fillCircularList(NUMBER_OF_ELEMENT);
-        SelectStrategy evenStrategy = e -> (e % 2) == 0;
-        assertEquals(Optional.of(0), circularList.next(evenStrategy));
-        assertEquals(Optional.of(2), circularList.next(evenStrategy));
-        assertEquals(Optional.of(4), circularList.next(evenStrategy));
+
+        assertEquals(Optional.of(0), circularList.next(factory.createEvenStrategy()));
+        assertEquals(Optional.of(2), circularList.next(factory.createEvenStrategy()));
+        assertEquals(Optional.of(4), circularList.next(factory.createEvenStrategy()));
     }
 
     @Test
     void testNextWithMultipleOfStrategy(){
         fillCircularList(NUMBER_OF_ELEMENT);
-        SelectStrategy multipleOfFive = e -> (e % 5) == 0;
-        assertEquals(Optional.of(0), circularList.next(multipleOfFive));
-        assertEquals(Optional.of(5), circularList.next(multipleOfFive));
-        assertEquals(Optional.of(0), circularList.next(multipleOfFive));
+        assertEquals(Optional.of(0), circularList.next(factory.createMultipleOfStrategy(5)));
+        assertEquals(Optional.of(5), circularList.next(factory.createMultipleOfStrategy(5)));
+        assertEquals(Optional.of(0), circularList.next(factory.createMultipleOfStrategy(5)));
     }
 
     @Test
     void testNextWithEqualsStrategy(){
         fillCircularList(NUMBER_OF_ELEMENT);
-        SelectStrategy equalsStrategy = e -> e == 3;
-        assertEquals(Optional.of(3), circularList.next(equalsStrategy));
-        assertEquals(Optional.of(3), circularList.next(equalsStrategy));
+        assertEquals(Optional.of(3), circularList.next(factory.createEqualsStrategy(3)));
+        assertEquals(Optional.of(3), circularList.next(factory.createEqualsStrategy(3)));
     }
 
     @Test
     void testNextWithDifferentStrategy(){
         fillCircularList(NUMBER_OF_ELEMENT);
-        assertEquals(Optional.of(6), circularList.next(e -> e == 6));
-        assertEquals(Optional.of(8), circularList.next(e -> (e % 2) == 0));
-        assertEquals(Optional.of(9), circularList.next(e -> (e % 3) == 0));
-        assertEquals(Optional.empty(), circularList.next(e -> e == 20));
-        assertEquals(Optional.of(0), circularList.next(e -> (e % 2) == 0));
+        assertEquals(Optional.of(6), circularList.next(factory.createEqualsStrategy(6)));
+        assertEquals(Optional.of(8), circularList.next(factory.createEvenStrategy()));
+        assertEquals(Optional.of(9), circularList.next(factory.createMultipleOfStrategy(3)));
+        assertEquals(Optional.empty(), circularList.next(factory.createEqualsStrategy(20)));
+        assertEquals(Optional.of(0), circularList.next(factory.createEvenStrategy()));
     }
 
     @Test
     void  testNextWithStrategyOnEmptyList(){
-        assertEquals(Optional.empty(), circularList.next(e -> e==2));
+        assertEquals(Optional.empty(), circularList.next(factory.createEqualsStrategy(12)));
     }
 
 
