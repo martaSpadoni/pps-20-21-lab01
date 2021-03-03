@@ -24,23 +24,21 @@ public class CircularListImpl implements CircularList {
         return list.isEmpty();
     }
 
+    private Optional<Integer> getElement(){
+        return list.isEmpty() ? Optional.empty() : Optional.of(list.get(index));
+    }
+
     @Override
     public Optional<Integer> next() {
-        if(list.isEmpty()){
-            return Optional.empty();
-        }
-        Optional<Integer> next = Optional.of(list.get(index));
+        Optional<Integer> next = getElement();
         index = (index+1) % list.size();
         return next;
     }
 
     @Override
     public Optional<Integer> previous() {
-        if(list.isEmpty()){
-            return Optional.empty();
-        }
-        index = index-1 < 0 ? list.size()-1 : index-1;
-        return Optional.of(list.get(index));
+        index = list.isEmpty() ? 0 : index-1 < 0 ? list.size()-1 : index-1;
+        return getElement();
     }
 
     @Override

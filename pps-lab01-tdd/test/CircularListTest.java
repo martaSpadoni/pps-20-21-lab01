@@ -108,4 +108,6 @@ public class CircularListTest {
         assertEquals(Optional.of(NUMBER_OF_ELEMENT-1), circularList.previous());
     }
 
+
+
 }
