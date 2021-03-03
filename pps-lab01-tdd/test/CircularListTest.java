@@ -145,6 +145,16 @@ public class CircularListTest {
         assertEquals(Optional.of(9), circularList.previous());
     }
 
+    @Test
+    void  testReset(){
+        fillCircularList(NUMBER_OF_ELEMENT);
+        circularList.previous();
+        circularList.previous();
+        circularList.next();
+        circularList.reset();
+        circularList.next();
+        assertEquals(Optional.of(1), circularList.next());
+    }
 
 
 
