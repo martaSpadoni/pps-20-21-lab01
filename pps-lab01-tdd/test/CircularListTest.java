@@ -162,6 +162,14 @@ public class CircularListTest {
         assertEquals(Optional.of(4), circularList.next( e -> (e % 2) == 0 ));
     }
 
+    @Test
+    void testNextWithMultipleOfStrategy(){
+        fillCircularList(NUMBER_OF_ELEMENT);
+        assertEquals(Optional.of(0), circularList.next( e -> (e % 5) == 0 ));
+        assertEquals(Optional.of(5), circularList.next( e -> (e % 5) == 0 ));
+        assertEquals(Optional.of(0), circularList.next( e -> (e % 5) == 0 ));
+    }
+
 
 
 }
