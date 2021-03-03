@@ -77,7 +77,6 @@ public class CircularListTest {
     }
 
     @Test
-
     void testMultipleNext(){
         for(int i = 0; i < NUMBER_OF_ADD; i++){
             circularList.add(i);
@@ -88,6 +87,20 @@ public class CircularListTest {
         }
 
         assertEquals(Optional.of(6), circularList.next());
+
+    }
+
+    @Test
+    void testNextUntilEnd(){
+        for(int i = 0; i < NUMBER_OF_ADD; i++){
+            circularList.add(i);
+        }
+
+        for(int i = 0; i <= circularList.size(); i++){
+            circularList.next();
+        }
+
+        assertEquals(Optional.of(1), circularList.next());
 
     }
 
