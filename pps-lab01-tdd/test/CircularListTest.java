@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CircularListTest {
 
     private final static int NUMBER_OF_ADD = 10;
+    private final static int NUMBER_OF_NEXT = 5;
 
     private CircularList circularList;
 
@@ -78,6 +79,15 @@ public class CircularListTest {
     @Test
 
     void testMultipleNext(){
+        for(int i = 0; i < NUMBER_OF_ADD; i++){
+            circularList.add(i);
+        }
+
+        for(int i = 0; i <= NUMBER_OF_NEXT; i++){
+            circularList.next();
+        }
+
+        assertEquals(Optional.of(6), circularList.next());
 
     }
 
